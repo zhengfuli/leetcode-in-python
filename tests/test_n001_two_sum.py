@@ -2,14 +2,8 @@ import unittest
 from n001_two_sum import TwoSum
 
 class TestTwoSum(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        cls.dut = TwoSum()
-
-    @classmethod
-    def tearDownClass(cls):
-        pass
+    def setUp(self):
+        self.dut = TwoSum()
 
     def testOneMatch(self):
         self.assertEqual(self.dut.twoSum([2, 4, 1, 5, 8], 6), [0, 1])

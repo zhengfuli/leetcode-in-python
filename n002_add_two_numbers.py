@@ -1,11 +1,9 @@
 class ListNode(object):
-
     def __init__(self, val):
         self.val = val
         self.next = None
 
 class AddTwoNumbers(object):
-
     def addTwoNumbers(self, l1, l2):
         """
         :param l1:ListNode 
@@ -15,7 +13,6 @@ class AddTwoNumbers(object):
         dummy1, dummy2 = l1, l2
         head = dummy = ListNode(0)
         sum, carry = 0, 0
-
         while dummy1 or dummy2:
             if not dummy1:
                 sum = dummy2.val + carry
@@ -29,8 +26,6 @@ class AddTwoNumbers(object):
             carry = sum / 10
             dummy.next = ListNode(sum%10)
             dummy = dummy.next
-
-
         if carry != 0:
             dummy.next = ListNode(carry)
         return head.next
