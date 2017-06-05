@@ -23,7 +23,7 @@ class AddTwoNumbers(object):
             else:
                 sum = dummy1.val + dummy2.val + carry
                 dummy1, dummy2 = dummy1.next, dummy2.next
-            carry = sum / 10
+            carry = sum/10
             dummy.next = ListNode(sum%10)
             dummy = dummy.next
         if carry != 0:

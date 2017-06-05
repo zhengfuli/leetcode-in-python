@@ -20,13 +20,13 @@ class MedianOfTwoSortedArrays(object):
                 return findKthNum(nums1, nums2[pos2:], pos1)
 
         if len(nums1) == 0 and len(nums2) == 0:
-            return
-        length = len(nums1) + len(nums2)
-        if length % 2 == 0:
-            k = length / 2
-            return (findKthNum(nums1, nums2, k) + findKthNum(nums1, nums2, k+1)) * 0.5
+            return None
+        total_length = len(nums1) + len(nums2)
+        if total_length%2 == 0:
+            k = total_length/2
+            return (findKthNum(nums1, nums2, k) + findKthNum(nums1, nums2, k+1))*0.5
         else:
-            k = length / 2 + 1
+            k = total_length/2 + 1
             return findKthNum(nums1, nums2, k)
 
 
