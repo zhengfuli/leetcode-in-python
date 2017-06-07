@@ -8,7 +8,7 @@ class LongestSubstringWithoutRepeatingCharacters(object):
         substring = ''
         for char in s:
             if char in substring:
-                substring = substring.split(char)[1]
+                substring = substring[substring.index(char)+1:]
             substring += char
             if len(substring) > max_length:
                 max_length = len(substring)
