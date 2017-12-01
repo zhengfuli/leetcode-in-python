@@ -13,6 +13,7 @@ class CountAndSay(object):
                     tmp, count = char, 1
             say += str(count) + tmp
         return say
+
 # if __name__ == '__main__':
 #     test = CountAndSay()
 #     test.countAndSay(3)
