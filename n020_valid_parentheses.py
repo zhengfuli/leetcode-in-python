@@ -6,14 +6,14 @@ class IsValid(object):
         :rtype: bool
         """
         dict = {'(':')', '[':']', '{':'}'}
-        left_index = []
+        left_parentheses = []
         for l in s:
             if l in dict:
-                left_index.append(l)
+                left_parentheses.append(l)
             else:
-                if not left_index or l != dict[left_index.pop()]:
+                if not left_parentheses or l != dict[left_parentheses.pop()]:
                     return False
-        return left_index == []
+        return left_parentheses == []
 
 class testBench(unittest.TestCase):
     def setUp(self):
