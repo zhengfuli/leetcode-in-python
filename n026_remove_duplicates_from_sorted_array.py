@@ -4,11 +4,14 @@ class RemoveDuplicates(object):
         :type nums: List[int]
         :rtype: int
         """
-        i = 0
-        while i < len(nums)-1:
-            if nums[i] == nums[i+1]:
-                nums.remove(nums[i+1])
-            else:
-                i += 1
-        return len(nums)
+        if not nums:
+            return 0
 
+        j = 0
+        length = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[j]:
+                nums[j] = nums[i]
+                j += 1
+                length += 1
+        return length
