@@ -1,5 +1,9 @@
-class Sqrt(object):
-    def binarySearch(self, num):
+class MySqrt(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
         min = 0.0
         mid = 0.0
         max = num*1.0
@@ -11,8 +15,3 @@ class Sqrt(object):
             else:
                 min = mid
         return mid
-
-if __name__ == '__main__':
-    # tb = Sqrt()
-    # print tb.binarySearch(5)
-    pass
