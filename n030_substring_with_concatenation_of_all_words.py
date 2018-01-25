@@ -1,33 +1,38 @@
 class FindSubstring(object):
-    def findSubstring(self, S, L):
+    def findSubstring(self, s, words):
         """
         :type s: str
         :type words: List[str]
         :rtype: List[int]
         """
-        words = {}
-        wordNum = len(L)
-        for i in L:
-            if i not in words:
-                words[i] = 1
-            else:
-                words[i] += 1
-        wordLen = len(L[0])
+        dict = {}
+        num = len(words)
+        length = len(words[0])
         res = []
-        for i in range(len(S) + 1 - wordLen * wordNum):
-            curr = {};
+
+        for word in words:
+            if word not in dict:
+                dict[word] = 1
+            else:
+                dict[word] += 1
+
+        # total number of possible combinations of all words
+        for i in xrange(len(s)+1-num*length):
+            curr = {}
             j = 0
-            while j < wordNum:
-                word = S[i + j * wordLen:i + j * wordLen + wordLen]
-                if word not in words:
+            while j < num:
+                word = s[i+j*length:i+(j+1)*length]
+                if word not in dict:
                     break
                 if word not in curr:
                     curr[word] = 1
                 else:
                     curr[word] += 1
-                if curr[word] > words[word]: break
+                if curr[word] > dict[word]:
+                    break
                 j += 1
-            if j == wordNum: res.append(i)
+            if j == num:
+                res.append(i)
         return res
 
 if __name__ == '__main__':
