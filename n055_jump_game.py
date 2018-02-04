@@ -4,11 +4,11 @@ class JumpGame(object):
         :type nums: List[int]
         :rtype: bool
         """
-        step = nums[0]
+        maxReach = nums[0]
         for i in xrange(1, len(nums)):
-            if step > 0:
-                step -= 1
-                step = max(step, nums[i])
+            if maxReach > 0:
+                maxReach -= 1
+                maxReach = max(maxReach, nums[i])
             else:
                 return False
         return True
