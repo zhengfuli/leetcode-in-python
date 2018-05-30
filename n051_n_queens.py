@@ -4,7 +4,7 @@ class SolveNQueens(object):
         :type n: int
         :rtype: List[List[str]]
         """
-        def check(k, j):  # check if the kth queen can be put in column j!
+        def check(k, j):  # check if the kth queen can be put in column j
             for i in range(k):
                 if board[i] == j or abs(k - i) == abs(board[i] - j):
                     return False
