@@ -1,33 +1,31 @@
 class Solution:
+    def __init__(self):
+        self.count = 0
+
     # @return an integer
     def totalNQueens(self, n):
-        def check(k, j):  # check if the kth queen can be put in column j!
+
+        def isvalid(k, j):
             for i in range(k):
-                if board[i]==j or abs(k-i)==abs(board[i]-j):
+                if board[i] == j or abs(board[i]-j) == abs(k-i):
                     return False
             return True
-        board=[-1 for i in range(n)]
-        row=0; col=0; sum=0
-        while row<n:
-            while col<n:
-                if check(row, col):
-                    board[row]=col
-                    col=0
-                    break
-                else:
-                    col+=1
-            if board[row]==-1:
-                if row==0:
-                    break
-                else:
-                    row-=1
-                    col=board[row]+1
-                    board[row]=-1
-                    continue
-            if row==n-1:
-                sum+=1
-                col=board[row]+1
-                board[row]=-1
-                continue
-            row+=1
-        return sum
+
+        def dfs(depth):
+
+            if depth == n:
+                self.count += 1
+                return
+
+            for i in range(n):
+                if isvalid(depth, i):
+                    board[depth] = i
+                    dfs(depth+1)
+
+        board = [-1] * n
+        dfs(0)
+        return self.count
+
+if __name__ == '__main__':
+    tb = Solution()
+    print tb.totalNQueens(4)
