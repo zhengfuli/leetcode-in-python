@@ -5,12 +5,28 @@ class Solution:
         :type b: str
         :rtype: str
         """
-        res = ''
-        i, j, plus = len(a) - 1, len(b) - 1, 0
+        [s , l] = [a, b] if len(a) < len(b) else [b, a]
 
-        while i >= 0 or j >= 0 or plus == 1:
-            plus += int(a[i]) if i >= 0 else 0
-            plus += int(b[j]) if j >= 0 else 0
-            res = str(plus % 2) + res
-            i, j, plus = i - 1, j - 1, plus / 2
-        return res
+        carry = 0
+
+        res = ""
+
+        for i in range(-1, -len(s)-1, -1):
+            if int(s[i]) and int(l[i]):
+                res += "1" if carry else "0"
+                carry = 1
+            else:
+                res += "1" if not carry else "0"
+                carry = 0
+
+        for j in range(i, -len(l)-1, -1):
+            if int(s[i]) and carry:
+                res += "0"
+                carry = 1
+            else:
+                res += "1"
+                carry = 0
+
+        print(res)
+
+
