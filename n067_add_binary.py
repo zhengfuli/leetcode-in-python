@@ -5,28 +5,37 @@ class Solution:
         :type b: str
         :rtype: str
         """
-        [s , l] = [a, b] if len(a) < len(b) else [b, a]
+        if not a: return b
+        if not b: return a
+
+        [s, l] = [a, b] if len(a) < len(b) else [b, a]
+
+        s, l = s[::-1], l[::-1]
 
         carry = 0
 
         res = ""
 
-        for i in range(-1, -len(s)-1, -1):
-            if int(s[i]) and int(l[i]):
-                res += "1" if carry else "0"
-                carry = 1
-            else:
-                res += "1" if not carry else "0"
-                carry = 0
+        for i in range(len(s)):
 
-        for j in range(i, -len(l)-1, -1):
-            if int(s[i]) and carry:
-                res += "0"
-                carry = 1
-            else:
-                res += "1"
-                carry = 0
+            sum = int(s[i]) + int(l[i]) + carry
 
-        print(res)
+            residue, carry = int(sum % 2), int(sum / 2)
 
+            res += str(residue)
 
+        for j in range(len(s), len(l)):
+
+            sum = int(l[j]) + carry
+
+            residue, carry = int(sum % 2), int(sum / 2)
+
+            res += str(residue)
+
+        if carry: res += "1"
+
+        return res[::-1]
+
+if __name__ == '__main__':
+    tb = Solution()
+    print(tb.addBinary("0", "1"))
