@@ -13,15 +13,16 @@ class Solution:
         """
         intervals.append(newInterval)
         intervals.sort(key=lambda x: x.start)
-        length = len(intervals)
+
         res = []
-        for i in range(length):
-            if res == []:
-                res.append(intervals[i])
+
+        for interval in intervals:
+            if not res:
+                res.append(interval)
             else:
-                size = len(res)
-                if res[size - 1].start <= intervals[i].start <= res[size - 1].end:
-                    res[size - 1].end = max(intervals[i].end, res[size - 1].end)
+                if res[-1].start <= interval.start <= res[-1].end:
+                    res[-1].end = interval.end if res[-1].end <= interval.end else res[-1].end
                 else:
-                    res.append(intervals[i])
+                    res.append(interval)
+
         return res
