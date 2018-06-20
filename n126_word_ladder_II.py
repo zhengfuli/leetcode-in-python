@@ -1,15 +1,20 @@
 class Solution:
-    # @param start, a string
-    # @param end, a string
-    # @param dict, a set of string
-    # @return a list of lists of string
-    def findLadders(self, start, end, dict):
+    def findLadders(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: List[List[str]]
+        """
+        start, end, dict = beginWord, endWord, wordList
+        if start not in dict: dict.add(start)
+
         def buildpath(path, word):
             if len(prevMap[word]) == 0:
                 path.append(word);
                 currPath = path[:]
                 currPath.reverse();
-                result.append(currPath)
+                result.add(currPath)
                 path.pop();
                 return
             path.append(word)
@@ -17,11 +22,11 @@ class Solution:
                 buildpath(path, iter)
             path.pop()
 
-        result = []
+        result = set([])
         prevMap = {}
         length = len(start)
         for i in dict:
-            prevMap[i] = []
+            prevMap[i] = set([])
         candidates = [set(), set()];
         current = 0;
         previous = 1
@@ -38,7 +43,7 @@ class Solution:
                         if word[i] != j:
                             nextword = part1 + j + part2
                             if nextword in dict:
-                                prevMap[nextword].append(word)
+                                prevMap[nextword].add(word)
                                 candidates[current].add(nextword)
             if len(candidates[current]) == 0: return result
             if end in candidates[current]: break
