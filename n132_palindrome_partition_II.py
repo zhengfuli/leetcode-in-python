@@ -5,23 +5,11 @@ class Solution:
         :rtype: int
         """
         dp = [[False] * len(s) for i in range(len(s))]
+        min_cut = [len(s) - i for i in range(len(s)+1)]
 
         for i in range(len(s)-1, -1, -1):
-            for j in range(len(s)-1, i-1, -1):
-                if i == j: dp[i][j] = True
-                elif j - i == 1: dp[i][j] = s[i] == s[j]
-                elif j > i + 1: dp[i][j] = dp[i+1][j-1] and s[i] == s[j]
-
-        self.min_cut = 0
-
-        def dfs(min_cut, start):
-            if start == len(s):
-                self.min_cut = min(self.min_cut, min_cut)
-                return
-
-            for i in range(start, len(s)):
-                if dp[start][i]:
-                    dfs(min_cut+1, start+1)
-
-        dfs(self.min_cut, 0)
-        return self.min_cut
+            for j in range(i, len(s)):
+                if s[i] == s[j] and (((j - i) < 2) or dp[i+1][j-1]):
+                    dp[i][j] = True
+                    min_cut[i] = min(min_cut[i], 1 + min_cut[j+1])
+        return min_cut[0] - 1
