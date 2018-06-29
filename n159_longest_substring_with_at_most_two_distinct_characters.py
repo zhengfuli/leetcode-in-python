@@ -10,7 +10,11 @@ class Solution(object):
 
             if len(dict.keys()) > 2:
                 indexes = list(dict.values())
-                max_len = max(max_len, max(indexes[0]+indexes[1])-min(indexes[0]+indexes[1])+1)
+                max_len = max(max_len, max(indexes[0]+indexes[1])-min(indexes[0]+indexes[1]))
                 dict.pop(list(dict.keys())[0])
 
         return max_len
+
+if __name__ == '__main__':
+    tb = Solution()
+    print(tb.lengthOfLongestSubstringTwoDistinct("eceavceeec"))
