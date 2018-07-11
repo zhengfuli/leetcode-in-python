@@ -6,13 +6,10 @@ class Solution:
         """
         if n < 1: return
 
-        d = n
         res = ""
 
-        while d > 26:
-            r = d % 26
-            d = int(d / 26)
-            res += chr(r + 66)
+        while n:
+            res = chr((n - 1) % 26 + 65) + res
+            n = (n - 1) / 26
 
-        res += chr(d + 64)
-        return res[::-1]
+        return res
