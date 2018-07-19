@@ -10,12 +10,13 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        #迭代
         new_head = None
+
         while head:
             p = head
             head = head.next
             p.next = new_head
             new_head = p
+
         return new_head
 
