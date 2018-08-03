@@ -1,28 +1,25 @@
 import sys
 
-
 class Solution:
     def nthUglyNumber(self, n):
         """
         :type n: int
         :rtype: int
         """
-        factor_and_index = {2: 0, 3: 0, 5: 0}
+        if n <= 0: return 0
+        if n == 1: return 1
+
         ugly_nums = [1]
-        min_ugly_num = sys.maxsize
+        i2, i3, i5 = 0, 0, 0
 
-        while len(ugly_nums) < n:
-            min_ugly_num, factor_index = sys.maxsize, 0
-            for index in factor_and_index:
-                temp = index * ugly_nums[factor_and_index[index]]
-                if temp < min_ugly_num:
-                    min_ugly_num, factor_index = temp, index
+        for k in range(n-1):
+            n2, n3, n5 = 2 * ugly_nums[i2], 3 * ugly_nums[i3], 5 * ugly_nums[i5]
+            m = min(n2, n3, n5)
+            ugly_nums.append(m)
 
-            if min_ugly_num not in ugly_nums:
-                ugly_nums.append(min_ugly_num)
+            i2 += (m == n2)
+            i3 += (m == n3)
+            i5 += (m == n5)
 
-            factor_and_index[factor_index] += 1
-
-        # print(ugly_nums)
-        return ugly_nums[-1]
+        return m
 
