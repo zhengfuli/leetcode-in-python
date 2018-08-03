@@ -9,7 +9,7 @@ class Solution:
         for i in range(len(nums)):
             if nums[i] == 'm': pass
 
-            if nums[i] != i:
+            elif nums[i] != i:
                 nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
 
         return nums.index('m')
