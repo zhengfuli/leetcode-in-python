@@ -1,16 +1,40 @@
-from collections import Counter
+class Solution:
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
 
-def Hindex(indexList):
-    #构建引用次数与文章篇数的映射
-    HCounter = Counter(indexList)
-    #逆序字典，让引用次数高的引用次数排在前面
-    ReversedCounter = sorted(HCounter.iteritems(), reverse = True)
-    #分别生成 引用次数列表CounterKeys 和 该引用次数的文章列表CounterValues
-    CounterKeys = [i[0] for i in ReversedCounter ]
-    CounterValues = [i[1] for i in ReversedCounter]
-    #CounterKeys，CounterValues根据索引值一一对应，遍历索引值
-    for index in range(0,len(CounterValues)):
-        #sum(CounterValues[0:index+1])为大于等于某个索引值——CounterKeys[index]的所有的文章总和
-        if CounterKeys[index] <= sum(CounterValues[0:index+1]):
-            break
-    return CounterKeys[index]
+        def quick_sort(nums, left, right):
+            if left >= right: return nums
+
+            l, r = left, right
+            key = nums[l]
+
+            while l < r:
+                while l < r and nums[r] >= key:
+                    r -= 1
+
+                nums[l], nums[r] = nums[r], nums[l]
+
+                while l < r and nums[l] <= key:
+                    l += 1
+
+                nums[r], nums[l] = nums[l], nums[r]
+
+            # print(nums)
+            quick_sort(nums, left, l - 1)
+            quick_sort(nums, r + 1, right)
+            return nums
+
+        if not citations: return 0
+        if len(citations) == 1: return min(1, citations[0])
+
+        sorted_citations = quick_sort(citations, 0, len(citations) - 1)
+        # print(sorted_citations)
+
+        for i in range(len(sorted_citations) - 1, -1, -1):
+            if sorted_citations[i] < len(sorted_citations) - i:
+                return len(sorted_citations) - i - 1
+
+        return len(sorted_citations) - i
