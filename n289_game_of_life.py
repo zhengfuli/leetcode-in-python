@@ -4,14 +4,15 @@ class Solution:
         :type board: List[List[int]]
         :rtype: void Do not return anything, modify board in-place instead.
         """
-        for i in range(len(board) - 1):
-            for j in range(len(board[i]) - 1):
+        for i in range(len(board)):
+            for j in range(len(board[i])):
                 # check only partial neighbors
                 for nei_x, nei_y in [(i, j+1), (i+1, j+1), (i+1, j), (i+1, j-1)]:
                     # validate neighbors within boundaries
-                    if 0 <= nei_x < len(board) and  0 <= nei_y < len(board[j]):
+                    if 0 <= nei_x < len(board) and  0 <= nei_y < len(board[nei_x]):
+                        # print(nei_x, nei_y)
                         # if this cell is dead
-                        if not board[i][j]:
+                        if board[i][j] <= 0:
                             if board[nei_x][nei_y] > 0:
                                 board[i][j] -= 1
                         else:
@@ -30,11 +31,3 @@ class Solution:
                 elif board[i][j] > 4: board[i][j] = 0
                 elif board[i][j] == -3: board[i][j] = 1
                 else: board[i][j] = 0
-
-tb = Solution()
-tb.gameOfLife([
-  [0,1,0],
-  [0,0,1],
-  [1,1,1],
-  [0,0,0]
-])
