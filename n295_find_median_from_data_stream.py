@@ -22,7 +22,7 @@ class MaxHeap(object):
 
         count = 1
         while 2 * count <= self.count:
-            print(self.heap)
+            # print(self.heap)
             j = 2 * count
 
             if j + 1 <= self.count:
@@ -100,16 +100,24 @@ class MedianFinder:
         :type num: int
         :rtype: void
         """
-        self.max_heap.insert(num)
+        self.min_heap.insert(num)
+        self.max_heap.insert(self.min_heap.peek())
+        self.min_heap.pop()
+
+        if len(self.min_heap) < len(self.max_heap):
+            self.min_heap.insert(self.max_heap.pop())
 
 
     def findMedian(self):
         """
         :rtype: float
         """
-
-
-
+        if len(self.min_heap) > len(self.max_heap):
+            return self.min_heap.peek()
+        elif len(self.min_heap) < len(self.max_heap):
+            return self.max_heap.peek()
+        else:
+            return (self.min_heap.peek() + self.max_heap.peek()) / 2
         # Your MedianFinder object will be instantiated and called as such:
         # obj = MedianFinder()
         # obj.addNum(num)
