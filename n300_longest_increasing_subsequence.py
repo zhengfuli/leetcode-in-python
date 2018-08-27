@@ -1,6 +1,9 @@
 class Solution:
     def binary_search(self, left, right, nums, target):
-        if left +1 == right:
+        # print(left, right, nums)
+        if left == right: return left
+
+        if left + 1 == right:
             if nums[left] <= target <= nums[right]:
                 return left
             elif nums[left] > target:
@@ -20,25 +23,26 @@ class Solution:
         """
         if not nums: return 0
 
-        dp = {}
-        max_len = 1
+        dp = []
 
-        for i in range(len(nums)):
+        for num in nums:
             if not dp:
-                dp[nums[i]] = [nums[i]]
+                dp.append(num)
             else:
-                if nums[i] > nums[i-1]:
-                    dp[nums[i]] = [dp[nums[i-1]].append(nums[i])]
-                    max_len = max(max_len, dp[nums[i]][0])
-                elif len(dp[nums[i-1]]) != 1 or len(dp[nums[i-1]][0]) != 1:
-                    for sub in dp[nums[i-1]]:
-                        new_sub = sub[:self.binary_search(0, len(sub)-1, sub, nums[i])+1].append(nums[i])
-                        dp[nums[i]] = dp[nums[i-1]].append(new_sub)
+                if num > dp[-1]:
+                    dp.append(num)
                 else:
-                    dp[nums[i]] = [nums[i]]
-
-        lengths = [len(sub) for sub in list(dp.values())]
-        return max(lengths)
+                    pos = self.binary_search(0, len(dp)-1, dp, num)
+                    print(pos)
+                    if dp[pos] == num:
+                        pass
+                    elif pos == 0 and num <= dp[pos]:
+                        dp[0] = num
+                    else:
+                        dp = dp[:pos+1] + [num] + dp[pos+2:]
+            print(dp)
+        return len(dp)
 
 tb = Solution()
-print(tb.binary_search(0, 4, [1,3,5,7], 6))
+# print(tb.binary_search(0, 7, [10,9,2,5,3,4], 6))
+print(tb.lengthOfLIS([3,5,6,2,5,4,19,5,6,7,12]))
